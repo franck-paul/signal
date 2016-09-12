@@ -24,7 +24,9 @@ class signalPublicBehaviors
 		$core->blog->settings->addNameSpace('signal');
 		if ($core->blog->settings->signal->enabled) {
 			// Keep signal checkbox state during preview
-			$comment_preview['signal'] = $_POST['c_signal'];
+			if (isset($_POST['c_signal'])) {
+				$comment_preview['signal'] = $_POST['c_signal'];
+			}
 		}
 	}
 
