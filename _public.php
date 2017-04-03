@@ -39,7 +39,7 @@ class signalPublicBehaviors
 				// Restore signal checkbox if necessary
 				$checked = true;
 			}
-			$label = $core->blog->settings->signal->label !== '' ?
+			$label = $core->blog->settings->signal->label != '' ?
 				html::escapeHTML($core->blog->settings->signal->label) :
 				__('Private comment for the author (or the moderator)');
 			echo
