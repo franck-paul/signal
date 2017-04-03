@@ -23,10 +23,15 @@ class signalBehaviors
 	{
 		$settings->addNameSpace('signal');
 		echo
-		'<div class="fieldset"><h4>'.__('Signal').'</h4>'.
+		'<div class="fieldset" id="signal"><h4>'.__('Signal').'</h4>'.
 		'<p><label class="classic">'.
 		form::checkbox('signal_enabled','1',$settings->signal->enabled).
 		__('Enable private comments to the author (or the moderator)').'</label></p>'.
+		'<p><label>'.
+		__('User defined label:')." ".
+		form::field('signal_label',25,50,$settings->signal->label).
+		'</label></p>'."\n".
+		'<p class="form-note">'.__('Leave empty to use the default one:').' "'.__('Private comment for the author (or the moderator)').'"</p>'."\n".
 		'</div>';
 	}
 
@@ -34,5 +39,6 @@ class signalBehaviors
 	{
 		$settings->addNameSpace('signal');
 		$settings->signal->put('enabled',!empty($_POST['signal_enabled']),'boolean');
+		$settings->signal->put('label',empty($_POST['signal_label'])? '' : html::escapeHTML($_POST['signal_label']),'string');
 	}
 }

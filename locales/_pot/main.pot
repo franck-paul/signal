@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 signal module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-24 11:14+0200\n"
+"POT-Creation-Date: 2017-04-03 13:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,6 +28,14 @@ msgstr ""
 msgid "Enable private comments to the author (or the moderator)"
 msgstr ""
 
-#: ../hg-plugins/signal/_public.php:43
+#: ../hg-plugins/signal/_admin.php:31
+msgid "User defined label:"
+msgstr ""
+
+#: ../hg-plugins/signal/_admin.php:34
+msgid "Leave empty to use the default one:"
+msgstr ""
+
+#: ../hg-plugins/signal/_admin.php:34 ../hg-plugins/signal/_public.php:44
 msgid "Private comment for the author (or the moderator)"
 msgstr ""

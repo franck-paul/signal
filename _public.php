@@ -39,10 +39,13 @@ class signalPublicBehaviors
 				// Restore signal checkbox if necessary
 				$checked = true;
 			}
+			$label = $core->blog->settings->signal->label !== '' ?
+				html::escapeHTML($core->blog->settings->signal->label) :
+				__('Private comment for the author (or the moderator)');
 			echo
 				'<p class="signal">'.
 			    	'<input name="c_signal" id="c_signal" type="checkbox" '.($checked ? 'checked="checked"' : '').' /> '.
-		        	'<label for="c_signal">'.__('Private comment for the author (or the moderator)').'</label>'.
+		        	'<label for="c_signal">'.$label.'</label>'.
 				'</p>';
 		}
 	}
