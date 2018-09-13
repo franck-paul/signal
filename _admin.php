@@ -16,8 +16,8 @@ if (!defined('DC_CONTEXT_ADMIN')) {return;}
 // dead but useful code, in order to have translations
 __('Signal') . __('Private comments to the author');
 
-$core->addBehavior('adminBlogPreferencesForm', array('signalBehaviors', 'adminBlogPreferencesForm'));
-$core->addBehavior('adminBeforeBlogSettingsUpdate', array('signalBehaviors', 'adminBeforeBlogSettingsUpdate'));
+$core->addBehavior('adminBlogPreferencesForm', ['signalBehaviors', 'adminBlogPreferencesForm']);
+$core->addBehavior('adminBeforeBlogSettingsUpdate', ['signalBehaviors', 'adminBeforeBlogSettingsUpdate']);
 
 class signalBehaviors
 {

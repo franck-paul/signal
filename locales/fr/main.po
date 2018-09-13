@@ -17,13 +17,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Private comments to the author"
-msgstr "Commentaires privés pour l'auteur"
+msgstr "Commentaires privés pour l'auteur·rice"
 
 msgid "Signal"
 msgstr "Signal"
 
 msgid "Enable private comments to the author (or the moderator)"
-msgstr "Activer les commentaires privés pour l'auteur du billet (ou le modérateur)"
+msgstr "Activer les commentaires privés pour l'auteur·rice du billet (ou le ou la modérateur·rice)"
 
 msgid "User defined label:"
 msgstr "Message personnalisé :"
@@ -32,4 +32,4 @@ msgid "Leave empty to use the default one:"
 msgstr "Laisser vide pour utiliser le message par défaut :"
 
 msgid "Private comment for the author (or the moderator)"
-msgstr "Commentaire privé pour l'auteur (ou le modérateur)"
+msgstr "Commentaire privé pour l'auteur·rice (ou le oula modérateur·rice)"

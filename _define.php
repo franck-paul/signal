@@ -17,11 +17,11 @@ $this->registerModule(
     "Signal",                         // Name
     "Private comments to the author", // Description
     "Franck Paul",                    // Author
-    '0.2',                            // Version
-    array(
-        'requires'    => array(array('core', '2.9')),       // Dependencies
-        'permissions' => 'admin',                           // Permissions
-        'type'        => 'plugin',                          // Type
-        'settings'    => array('blog' => '#params.signal') // Settings
-    )
+    '0.3',                            // Version
+    [
+        'requires'    => [['core', '2.13']],           // Dependencies
+        'permissions' => 'admin',                      // Permissions
+        'type'        => 'plugin',                     // Type
+        'settings'    => ['blog' => '#params.signal'] // Settings
+    ]
 );

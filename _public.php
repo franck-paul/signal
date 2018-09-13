@@ -13,9 +13,9 @@
 
 if (!defined('DC_RC_PATH')) {return;}
 
-$core->addBehavior('publicCommentFormBeforeContent', array('signalPublicBehaviors', 'publicCommentFormBeforeContent'));
-$core->addBehavior('publicBeforeCommentPreview', array('signalPublicBehaviors', 'publicBeforeCommentPreview'));
-$core->addBehavior('publicBeforeCommentCreate', array('signalPublicBehaviors', 'publicBeforeCommentCreate'));
+$core->addBehavior('publicCommentFormBeforeContent', ['signalPublicBehaviors', 'publicCommentFormBeforeContent']);
+$core->addBehavior('publicBeforeCommentPreview', ['signalPublicBehaviors', 'publicBeforeCommentPreview']);
+$core->addBehavior('publicBeforeCommentCreate', ['signalPublicBehaviors', 'publicBeforeCommentCreate']);
 
 class signalPublicBehaviors
 {
@@ -42,8 +42,8 @@ class signalPublicBehaviors
                 $checked = true;
             }
             $label = $core->blog->settings->signal->label != '' ?
-            html::escapeHTML($core->blog->settings->signal->label) :
-            __('Private comment for the author (or the moderator)');
+                html::escapeHTML($core->blog->settings->signal->label) :
+                __('Private comment for the author (or the moderator)');
             echo
                 '<p class="signal">' .
                 '<input name="c_signal" id="c_signal" type="checkbox" ' . ($checked ? 'checked="checked"' : '') . ' /> ' .
