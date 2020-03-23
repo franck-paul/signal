@@ -19,9 +19,11 @@ $this->registerModule(
     "Franck Paul",                    // Author
     '0.3',                            // Version
     [
-        'requires'    => [['core', '2.13']],           // Dependencies
-        'permissions' => 'admin',                      // Permissions
-        'type'        => 'plugin',                     // Type
-        'settings'    => ['blog' => '#params.signal'] // Settings
+        'requires'    => [['core', '2.13']],                      // Dependencies
+        'permissions' => 'admin',                                 // Permissions
+        'type'        => 'plugin',                                // Type
+        'details'     => 'https://open-time.net/?q=signal',       // Details URL
+        'support'     => 'https://github.com/franck-paul/signal', // Support URL
+        'settings'    => ['blog' => '#params.signal']            // Settings
     ]
 );
