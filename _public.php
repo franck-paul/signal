@@ -16,6 +16,9 @@ if (!defined('DC_RC_PATH')) {return;}
 $core->addBehavior('publicCommentFormBeforeContent', ['signalPublicBehaviors', 'publicCommentFormBeforeContent']);
 $core->addBehavior('publicBeforeCommentPreview', ['signalPublicBehaviors', 'publicBeforeCommentPreview']);
 $core->addBehavior('publicBeforeCommentCreate', ['signalPublicBehaviors', 'publicBeforeCommentCreate']);
+$core->addBehavior('publicBeforeCommentRedir', ['signalPublicBehaviors', 'publicBeforeCommentRedir']);
+
+$core->tpl->addBlock('SysIfCommentPending', ['signalPublicTpl', 'SysIfCommentPending']);
 
 class signalPublicBehaviors
 {
@@ -65,8 +68,42 @@ class signalPublicBehaviors
             if ($cur->comment_status == 1) {
                 // Move status from published to pending
                 $cur->comment_status = -1;
-
             }
         }
+    }
+
+    public static function publicBeforeCommentRedir($cur)
+    {
+        global $core;
+
+        $core->blog->settings->addNameSpace('signal');
+        if (!$core->blog->settings->signal->enabled) {
+            return;
+        }
+
+        if (isset($_POST['c_signal']) || isset($_ctx->comment_preview['signal'])) {
+            return '&signal=1';
+        }
+    }
+}
+
+class signalPublicTpl
+{
+    /*dtd
+    <!ELEMENT tpl:SysIfCommentPending - - -- Container displayed if comment is pending after submission -->
+     */
+    public static function SysIfCommentPending($attr, $content)
+    {
+        // Void code, used by translation tool
+        __('Your private comment has been submitted.');
+
+        return
+            '<?php if (isset($_GET[\'pub\']) && $_GET[\'pub\'] == 0) : ?>' . "\n" .
+            '  <?php if (isset($_GET[\'signal\']) && $_GET[\'signal\'] == 1) : ?>' . "\n" .
+            '    <p class="message" id="pr">' . "<?php echo __('Your private comment has been submitted.'); ?>" . '</p>' . "\n" .
+            '  <?php else: ?>' . "\n" .
+            $content .
+            '  <?php endif; ?>' . "\n" .
+            '<?php endif; ?>';
     }
 }
