@@ -10,18 +10,19 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
 // dead but useful code, in order to have translations
 __('Signal') . __('Private comments to the author');
 
-$core->addBehavior('adminBlogPreferencesForm', ['signalBehaviors', 'adminBlogPreferencesForm']);
-$core->addBehavior('adminBeforeBlogSettingsUpdate', ['signalBehaviors', 'adminBeforeBlogSettingsUpdate']);
+dcCore::app()->addBehavior('adminBlogPreferencesForm', ['signalBehaviors', 'adminBlogPreferencesForm']);
+dcCore::app()->addBehavior('adminBeforeBlogSettingsUpdate', ['signalBehaviors', 'adminBeforeBlogSettingsUpdate']);
 
 class signalBehaviors
 {
-    public static function adminBlogPreferencesForm($core, $settings)
+    public static function adminBlogPreferencesForm($core = null, $settings)
     {
         $settings->addNameSpace('signal');
         echo
@@ -30,7 +31,7 @@ class signalBehaviors
         form::checkbox('signal_enabled', '1', $settings->signal->enabled) .
         __('Enable private comments to the author (or the moderator)') . '</label></p>' .
         '<p><label>' .
-        __('User defined label:') . " " .
+        __('User defined label:') . ' ' .
         form::field('signal_label', 25, 50, $settings->signal->label) .
         '</label></p>' . "\n" .
         '<p class="form-note">' . __('Leave empty to use the default one:') . ' "' . __('Private comment for the author (or the moderator)') . '"</p>' . "\n" .

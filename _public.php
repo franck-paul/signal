@@ -10,24 +10,23 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+if (!defined('DC_RC_PATH')) {
+    return;
+}
 
-if (!defined('DC_RC_PATH')) {return;}
+dcCore::app()->addBehavior('publicCommentFormBeforeContent', ['signalPublicBehaviors', 'publicCommentFormBeforeContent']);
+dcCore::app()->addBehavior('publicBeforeCommentPreview', ['signalPublicBehaviors', 'publicBeforeCommentPreview']);
+dcCore::app()->addBehavior('publicBeforeCommentCreate', ['signalPublicBehaviors', 'publicBeforeCommentCreate']);
+dcCore::app()->addBehavior('publicBeforeCommentRedir', ['signalPublicBehaviors', 'publicBeforeCommentRedir']);
 
-$core->addBehavior('publicCommentFormBeforeContent', ['signalPublicBehaviors', 'publicCommentFormBeforeContent']);
-$core->addBehavior('publicBeforeCommentPreview', ['signalPublicBehaviors', 'publicBeforeCommentPreview']);
-$core->addBehavior('publicBeforeCommentCreate', ['signalPublicBehaviors', 'publicBeforeCommentCreate']);
-$core->addBehavior('publicBeforeCommentRedir', ['signalPublicBehaviors', 'publicBeforeCommentRedir']);
-
-$core->tpl->addBlock('SysIfCommentPending', ['signalPublicTpl', 'SysIfCommentPending']);
+dcCore::app()->tpl->addBlock('SysIfCommentPending', ['signalPublicTpl', 'SysIfCommentPending']);
 
 class signalPublicBehaviors
 {
     public static function publicBeforeCommentPreview($comment_preview)
     {
-        global $core;
-
-        $core->blog->settings->addNameSpace('signal');
-        if ($core->blog->settings->signal->enabled) {
+        dcCore::app()->blog->settings->addNameSpace('signal');
+        if (dcCore::app()->blog->settings->signal->enabled) {
             // Keep signal checkbox state during preview
             if (isset($_POST['c_signal'])) {
                 $comment_preview['signal'] = $_POST['c_signal'];
@@ -35,17 +34,17 @@ class signalPublicBehaviors
         }
     }
 
-    public static function publicCommentFormBeforeContent($core, $_ctx)
+    public static function publicCommentFormBeforeContent($core = null, $_ctx = null)
     {
-        $core->blog->settings->addNameSpace('signal');
-        if ($core->blog->settings->signal->enabled) {
+        dcCore::app()->blog->settings->addNameSpace('signal');
+        if (dcCore::app()->blog->settings->signal->enabled) {
             $checked = false;
-            if (isset($_ctx->comment_preview['signal'])) {
+            if (isset(dcCore::app()->ctx->comment_preview['signal'])) {
                 // Restore signal checkbox if necessary
                 $checked = true;
             }
-            $label = $core->blog->settings->signal->label != '' ?
-                html::escapeHTML($core->blog->settings->signal->label) :
+            $label = dcCore::app()->blog->settings->signal->label != '' ?
+                html::escapeHTML(dcCore::app()->blog->settings->signal->label) :
                 __('Private comment for the author (or the moderator)');
             echo
                 '<p class="signal">' .
@@ -57,14 +56,12 @@ class signalPublicBehaviors
 
     public static function publicBeforeCommentCreate($cur)
     {
-        global $core, $_ctx;
-
-        $core->blog->settings->addNameSpace('signal');
-        if (!$core->blog->settings->signal->enabled) {
+        dcCore::app()->blog->settings->addNameSpace('signal');
+        if (!dcCore::app()->blog->settings->signal->enabled) {
             return;
         }
 
-        if (isset($_POST['c_signal']) || isset($_ctx->comment_preview['signal'])) {
+        if (isset($_POST['c_signal']) || isset(dcCore::app()->ctx->comment_preview['signal'])) {
             if ($cur->comment_status == 1) {
                 // Move status from published to pending
                 $cur->comment_status = -1;
@@ -74,14 +71,12 @@ class signalPublicBehaviors
 
     public static function publicBeforeCommentRedir($cur)
     {
-        global $core;
-
-        $core->blog->settings->addNameSpace('signal');
-        if (!$core->blog->settings->signal->enabled) {
+        dcCore::app()->blog->settings->addNameSpace('signal');
+        if (!dcCore::app()->blog->settings->signal->enabled) {
             return;
         }
 
-        if (isset($_POST['c_signal']) || isset($_ctx->comment_preview['signal'])) {
+        if (isset($_POST['c_signal']) || isset(dcCore::app()->ctx->comment_preview['signal'])) {     // @phpstan-ignore-line
             return '&signal=1';
         }
     }
