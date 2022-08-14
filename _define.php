@@ -18,7 +18,7 @@ $this->registerModule(
     'Signal',                         // Name
     'Private comments to the author', // Description
     'Franck Paul',                    // Author
-    '0.5',
+    '0.5.1',
     [
         'requires'    => [['core', '2.23']],                      // Dependencies
         'permissions' => 'admin',                                 // Permissions

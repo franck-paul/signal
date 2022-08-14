@@ -34,7 +34,7 @@ class signalPublicBehaviors
         }
     }
 
-    public static function publicCommentFormBeforeContent($core = null, $_ctx = null)
+    public static function publicCommentFormBeforeContent($core, $_ctx = null)
     {
         dcCore::app()->blog->settings->addNameSpace('signal');
         if (dcCore::app()->blog->settings->signal->enabled) {
