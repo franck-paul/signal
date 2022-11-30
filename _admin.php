@@ -17,12 +17,9 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 // dead but useful code, in order to have translations
 __('Signal') . __('Private comments to the author');
 
-dcCore::app()->addBehavior('adminBlogPreferencesForm', ['signalBehaviors', 'adminBlogPreferencesForm']);
-dcCore::app()->addBehavior('adminBeforeBlogSettingsUpdate', ['signalBehaviors', 'adminBeforeBlogSettingsUpdate']);
-
 class signalBehaviors
 {
-    public static function adminBlogPreferencesForm($core, $settings)
+    public static function adminBlogPreferencesForm($settings)
     {
         $settings->addNameSpace('signal');
         echo
@@ -45,3 +42,6 @@ class signalBehaviors
         $settings->signal->put('label', empty($_POST['signal_label']) ? '' : html::escapeHTML($_POST['signal_label']), 'string');
     }
 }
+
+dcCore::app()->addBehavior('adminBlogPreferencesFormV2', [signalBehaviors::class, 'adminBlogPreferencesForm']);
+dcCore::app()->addBehavior('adminBeforeBlogSettingsUpdate', [signalBehaviors::class, 'adminBeforeBlogSettingsUpdate']);

@@ -15,18 +15,22 @@ if (!defined('DC_RC_PATH')) {
 }
 
 $this->registerModule(
-    'Signal',                         // Name
-    'Private comments to the author', // Description
-    'Franck Paul',                    // Author
-    '0.5.1',
+    'Signal',
+    'Private comments to the author',
+    'Franck Paul',
+    '1.0',
     [
-        'requires'    => [['core', '2.23']],                      // Dependencies
-        'permissions' => 'admin',                                 // Permissions
-        'type'        => 'plugin',                                // Type
-        'settings'    => ['blog' => '#params.signal'],            // Settings
+        'requires'    => [['core', '2.24']],
+        'permissions' => dcCore::app()->auth->makePermissions([
+            dcAuth::PERMISSION_ADMIN,
+        ]),
+        'type'     => 'plugin',
+        'settings' => [
+            'blog' => '#params.signal',
+        ],
 
-        'details'    => 'https://open-time.net/?q=signal',       // Details URL
-        'support'    => 'https://github.com/franck-paul/signal', // Support URL
+        'details'    => 'https://open-time.net/?q=signal',
+        'support'    => 'https://github.com/franck-paul/signal',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/signal/master/dcstore.xml',
     ]
 );

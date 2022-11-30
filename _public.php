@@ -14,27 +14,18 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-dcCore::app()->addBehavior('publicCommentFormBeforeContent', ['signalPublicBehaviors', 'publicCommentFormBeforeContent']);
-dcCore::app()->addBehavior('publicBeforeCommentPreview', ['signalPublicBehaviors', 'publicBeforeCommentPreview']);
-dcCore::app()->addBehavior('publicBeforeCommentCreate', ['signalPublicBehaviors', 'publicBeforeCommentCreate']);
-dcCore::app()->addBehavior('publicBeforeCommentRedir', ['signalPublicBehaviors', 'publicBeforeCommentRedir']);
-
-dcCore::app()->tpl->addBlock('SysIfCommentPending', ['signalPublicTpl', 'SysIfCommentPending']);
-
 class signalPublicBehaviors
 {
     public static function publicBeforeCommentPreview($comment_preview)
     {
         dcCore::app()->blog->settings->addNameSpace('signal');
-        if (dcCore::app()->blog->settings->signal->enabled) {
+        if (dcCore::app()->blog->settings->signal->enabled && isset($_POST['c_signal'])) {
             // Keep signal checkbox state during preview
-            if (isset($_POST['c_signal'])) {
-                $comment_preview['signal'] = $_POST['c_signal'];
-            }
+            $comment_preview['signal'] = $_POST['c_signal'];
         }
     }
 
-    public static function publicCommentFormBeforeContent($core, $_ctx = null)
+    public static function publicCommentFormBeforeContent()
     {
         dcCore::app()->blog->settings->addNameSpace('signal');
         if (dcCore::app()->blog->settings->signal->enabled) {
@@ -61,15 +52,13 @@ class signalPublicBehaviors
             return;
         }
 
-        if (isset($_POST['c_signal']) || isset(dcCore::app()->ctx->comment_preview['signal'])) {
-            if ($cur->comment_status == 1) {
-                // Move status from published to pending
-                $cur->comment_status = -1;
-            }
+        if ((isset($_POST['c_signal']) || isset(dcCore::app()->ctx->comment_preview['signal'])) && $cur->comment_status == dcBlog::COMMENT_PUBLISHED) {
+            // Move status from published to pending
+            $cur->comment_status = dcBlog::COMMENT_PENDING;
         }
     }
 
-    public static function publicBeforeCommentRedir($cur)
+    public static function publicBeforeCommentRedir()
     {
         dcCore::app()->blog->settings->addNameSpace('signal');
         if (!dcCore::app()->blog->settings->signal->enabled) {
@@ -81,6 +70,11 @@ class signalPublicBehaviors
         }
     }
 }
+
+dcCore::app()->addBehavior('publicCommentFormBeforeContent', [signalPublicBehaviors::class, 'publicCommentFormBeforeContent']);
+dcCore::app()->addBehavior('publicBeforeCommentPreview', [signalPublicBehaviors::class, 'publicBeforeCommentPreview']);
+dcCore::app()->addBehavior('publicBeforeCommentCreate', [signalPublicBehaviors::class, 'publicBeforeCommentCreate']);
+dcCore::app()->addBehavior('publicBeforeCommentRedir', [signalPublicBehaviors::class, 'publicBeforeCommentRedir']);
 
 class signalPublicTpl
 {
@@ -102,3 +96,5 @@ class signalPublicTpl
             '<?php endif; ?>';
     }
 }
+
+dcCore::app()->tpl->addBlock('SysIfCommentPending', [signalPublicTpl::class, 'SysIfCommentPending']);
