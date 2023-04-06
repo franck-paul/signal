@@ -10,15 +10,13 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_RC_PATH')) {
-    return;
-}
+
+use Dotclear\Helper\Html\Html;
 
 class signalPublicBehaviors
 {
     public static function publicBeforeCommentPreview($comment_preview)
     {
-        dcCore::app()->blog->settings->addNameSpace('signal');
         if (dcCore::app()->blog->settings->signal->enabled && isset($_POST['c_signal'])) {
             // Keep signal checkbox state during preview
             $comment_preview['signal'] = $_POST['c_signal'];
@@ -27,7 +25,6 @@ class signalPublicBehaviors
 
     public static function publicCommentFormBeforeContent()
     {
-        dcCore::app()->blog->settings->addNameSpace('signal');
         if (dcCore::app()->blog->settings->signal->enabled) {
             $checked = false;
             if (isset(dcCore::app()->ctx->comment_preview['signal'])) {
@@ -35,7 +32,7 @@ class signalPublicBehaviors
                 $checked = true;
             }
             $label = dcCore::app()->blog->settings->signal->label != '' ?
-                html::escapeHTML(dcCore::app()->blog->settings->signal->label) :
+                Html::escapeHTML(dcCore::app()->blog->settings->signal->label) :
                 __('Private comment for the author (or the moderator)');
             echo
                 '<p class="signal">' .
@@ -47,7 +44,6 @@ class signalPublicBehaviors
 
     public static function publicBeforeCommentCreate($cur)
     {
-        dcCore::app()->blog->settings->addNameSpace('signal');
         if (!dcCore::app()->blog->settings->signal->enabled) {
             return;
         }
@@ -60,7 +56,6 @@ class signalPublicBehaviors
 
     public static function publicBeforeCommentRedir()
     {
-        dcCore::app()->blog->settings->addNameSpace('signal');
         if (!dcCore::app()->blog->settings->signal->enabled) {
             return;
         }
@@ -71,10 +66,12 @@ class signalPublicBehaviors
     }
 }
 
-dcCore::app()->addBehavior('publicCommentFormBeforeContent', [signalPublicBehaviors::class, 'publicCommentFormBeforeContent']);
-dcCore::app()->addBehavior('publicBeforeCommentPreview', [signalPublicBehaviors::class, 'publicBeforeCommentPreview']);
-dcCore::app()->addBehavior('publicBeforeCommentCreate', [signalPublicBehaviors::class, 'publicBeforeCommentCreate']);
-dcCore::app()->addBehavior('publicBeforeCommentRedir', [signalPublicBehaviors::class, 'publicBeforeCommentRedir']);
+dcCore::app()->addBehaviors([
+    'publicCommentFormBeforeContent' => [signalPublicBehaviors::class, 'publicCommentFormBeforeContent'],
+    'publicBeforeCommentPreview'     => [signalPublicBehaviors::class, 'publicBeforeCommentPreview'],
+    'publicBeforeCommentCreate'      => [signalPublicBehaviors::class, 'publicBeforeCommentCreate'],
+    'publicBeforeCommentRedir'       => [signalPublicBehaviors::class, 'publicBeforeCommentRedir'],
+]);
 
 class signalPublicTpl
 {

@@ -10,6 +10,9 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+
+use Dotclear\Helper\Html\Html;
+
 if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
@@ -21,7 +24,6 @@ class signalBehaviors
 {
     public static function adminBlogPreferencesForm($settings)
     {
-        $settings->addNameSpace('signal');
         echo
         '<div class="fieldset" id="signal"><h4>' . __('Signal') . '</h4>' .
         '<p><label class="classic">' .
@@ -37,11 +39,12 @@ class signalBehaviors
 
     public static function adminBeforeBlogSettingsUpdate($settings)
     {
-        $settings->addNameSpace('signal');
         $settings->signal->put('enabled', !empty($_POST['signal_enabled']), 'boolean');
-        $settings->signal->put('label', empty($_POST['signal_label']) ? '' : html::escapeHTML($_POST['signal_label']), 'string');
+        $settings->signal->put('label', empty($_POST['signal_label']) ? '' : Html::escapeHTML($_POST['signal_label']), 'string');
     }
 }
 
-dcCore::app()->addBehavior('adminBlogPreferencesFormV2', [signalBehaviors::class, 'adminBlogPreferencesForm']);
-dcCore::app()->addBehavior('adminBeforeBlogSettingsUpdate', [signalBehaviors::class, 'adminBeforeBlogSettingsUpdate']);
+dcCore::app()->addBehaviors([
+    'adminBlogPreferencesFormV2'    => [signalBehaviors::class, 'adminBlogPreferencesForm'],
+    'adminBeforeBlogSettingsUpdate' => [signalBehaviors::class, 'adminBeforeBlogSettingsUpdate'],
+]);
