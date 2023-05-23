@@ -28,7 +28,7 @@ class BackendBehaviors
 {
     public static function adminBlogPreferencesForm($settings)
     {
-        /** @var dcNamespace */
+        /** @var \dcNamespace */
         $settings = dcCore::app()->blog->settings->get(My::id());
 
         // Add fieldset for plugin options
