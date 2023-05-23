@@ -14,7 +14,7 @@ $this->registerModule(
     'Signal',
     'Private comments to the author',
     'Franck Paul',
-    '1.0',
+    '2.0',
     [
         'requires'    => [['core', '2.26']],
         'permissions' => dcCore::app()->auth->makePermissions([
