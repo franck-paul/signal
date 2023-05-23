@@ -1,11 +1,11 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="signal">
     <name>Signal</name>
-    <version>1.0</version>
+    <version>2.0</version>
     <author>Franck Paul</author>
     <desc>Private comments to the author</desc>
-    <file>https://github.com/franck-paul/signal/releases/download/1.0/plugin-signal-1.0.zip</file>
-    <da:dcmin>2.24</da:dcmin>
+    <file>https://github.com/franck-paul/signal/releases/download/2.0/plugin-signal-2.0.zip</file>
+    <da:dcmin>2.26</da:dcmin>
     <da:details>https://open-time.net/?q=signal</da:details>
     <da:support>https://github.com/franck-paul/signal</da:support>
   </module>
