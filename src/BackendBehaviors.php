@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\signal;
 
-use dcCore;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Input;
@@ -29,7 +28,7 @@ class BackendBehaviors
     public static function adminBlogPreferencesForm($settings)
     {
         /** @var \dcNamespace */
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
 
         // Add fieldset for plugin options
         echo
