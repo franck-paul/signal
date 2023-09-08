@@ -22,7 +22,7 @@ class FrontendBehaviors
 {
     public static function publicBeforeCommentPreview($comment_preview)
     {
-        if (My::settings()?->enabled && isset($_POST['c_signal'])) {
+        if (My::settings()->enabled && isset($_POST['c_signal'])) {
             // Keep signal checkbox state during preview
             $comment_preview['signal'] = $_POST['c_signal'];
         }
@@ -31,7 +31,7 @@ class FrontendBehaviors
     public static function publicCommentFormBeforeContent()
     {
         $settings = My::settings();
-        if ($settings?->enabled) {
+        if ($settings->enabled) {
             $checked = false;
             if (isset(dcCore::app()->ctx->comment_preview['signal'])) {
                 // Restore signal checkbox if necessary
@@ -50,7 +50,7 @@ class FrontendBehaviors
 
     public static function publicBeforeCommentCreate($cur)
     {
-        if (!My::settings()?->enabled) {
+        if (!My::settings()->enabled) {
             return;
         }
 
@@ -62,7 +62,7 @@ class FrontendBehaviors
 
     public static function publicBeforeCommentRedir()
     {
-        if (!My::settings()?->enabled) {
+        if (!My::settings()->enabled) {
             return;
         }
 
