@@ -14,12 +14,17 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\signal;
 
+use ArrayObject;
+
 class FrontendTemplate
 {
-    /*dtd
-    <!ELEMENT tpl:SysIfCommentPending - - -- Container displayed if comment is pending after submission -->
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
+     * @param      string                                            $content   The content
+     *
+     * @return     string
      */
-    public static function SysIfCommentPending($attr, $content)
+    public static function SysIfCommentPending(array|ArrayObject $attr, string $content): string
     {
         // Void code, used by translation tool
         __('Your private comment has been submitted.');

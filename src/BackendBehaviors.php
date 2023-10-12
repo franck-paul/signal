@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\signal;
 
+use dcSettings;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Input;
@@ -25,7 +26,7 @@ use Dotclear\Helper\Html\Html;
 
 class BackendBehaviors
 {
-    public static function adminBlogPreferencesForm($settings)
+    public static function adminBlogPreferencesForm(dcSettings $settings): string
     {
         /** @var \dcNamespace */
         $settings = My::settings();
@@ -52,11 +53,15 @@ class BackendBehaviors
             ]),
         ])
         ->render();
+
+        return '';
     }
 
-    public static function adminBeforeBlogSettingsUpdate($settings)
+    public static function adminBeforeBlogSettingsUpdate(dcSettings $settings): string
     {
         $settings->get(My::id())->put('enabled', !empty($_POST['signal_enabled']), 'boolean');
         $settings->get(My::id())->put('label', empty($_POST['signal_label']) ? '' : Html::escapeHTML($_POST['signal_label']), 'string');
+
+        return '';
     }
 }

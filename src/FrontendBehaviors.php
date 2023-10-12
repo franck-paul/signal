@@ -16,19 +16,27 @@ namespace Dotclear\Plugin\signal;
 
 use dcBlog;
 use dcCore;
+use Dotclear\Database\Cursor;
 use Dotclear\Helper\Html\Html;
 
 class FrontendBehaviors
 {
-    public static function publicBeforeCommentPreview($comment_preview)
+    /**
+     * @param      array<string, string>   $comment_preview  The comment preview
+     *
+     * @return     string
+     */
+    public static function publicBeforeCommentPreview(array $comment_preview): string
     {
         if (My::settings()->enabled && isset($_POST['c_signal'])) {
             // Keep signal checkbox state during preview
             $comment_preview['signal'] = $_POST['c_signal'];
         }
+
+        return '';
     }
 
-    public static function publicCommentFormBeforeContent()
+    public static function publicCommentFormBeforeContent(): string
     {
         $settings = My::settings();
         if ($settings->enabled) {
@@ -46,28 +54,34 @@ class FrontendBehaviors
                 '<label for="c_signal">' . $label . '</label>' .
                 '</p>';
         }
+
+        return '';
     }
 
-    public static function publicBeforeCommentCreate($cur)
+    public static function publicBeforeCommentCreate(Cursor $cur): string
     {
         if (!My::settings()->enabled) {
-            return;
+            return '';
         }
 
         if ((isset($_POST['c_signal']) || isset(dcCore::app()->ctx->comment_preview['signal'])) && $cur->comment_status == dcBlog::COMMENT_PUBLISHED) {
             // Move status from published to pending
             $cur->comment_status = dcBlog::COMMENT_PENDING;
         }
+
+        return '';
     }
 
-    public static function publicBeforeCommentRedir()
+    public static function publicBeforeCommentRedir(): string
     {
         if (!My::settings()->enabled) {
-            return;
+            return '';
         }
 
-        if (isset($_POST['c_signal']) || isset(dcCore::app()->ctx->comment_preview['signal'])) {     // @phpstan-ignore-line
+        if (isset($_POST['c_signal']) || isset(dcCore::app()->ctx->comment_preview['signal'])) {
             return '&signal=1';
         }
+
+        return '';
     }
 }
