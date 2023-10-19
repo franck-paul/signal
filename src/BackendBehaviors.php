@@ -26,7 +26,7 @@ use Dotclear\Helper\Html\Html;
 
 class BackendBehaviors
 {
-    public static function adminBlogPreferencesForm(dcSettings $settings): string
+    public static function adminBlogPreferencesForm(): string
     {
         /** @var \dcNamespace */
         $settings = My::settings();
@@ -57,10 +57,12 @@ class BackendBehaviors
         return '';
     }
 
-    public static function adminBeforeBlogSettingsUpdate(dcSettings $settings): string
+    public static function adminBeforeBlogSettingsUpdate(): string
     {
-        $settings->get(My::id())->put('enabled', !empty($_POST['signal_enabled']), 'boolean');
-        $settings->get(My::id())->put('label', empty($_POST['signal_label']) ? '' : Html::escapeHTML($_POST['signal_label']), 'string');
+        $settings = My::settings();
+
+        $settings->put('enabled', !empty($_POST['signal_enabled']), 'boolean');
+        $settings->put('label', empty($_POST['signal_label']) ? '' : Html::escapeHTML($_POST['signal_label']), 'string');
 
         return '';
     }
