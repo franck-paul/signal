@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\signal;
 
-use dcBlog;
-use dcCore;
+use Dotclear\App;
 use Dotclear\Database\Cursor;
 use Dotclear\Helper\Html\Html;
+use Dotclear\Interface\Core\BlogInterface;
 
 class FrontendBehaviors
 {
@@ -41,7 +41,7 @@ class FrontendBehaviors
         $settings = My::settings();
         if ($settings->enabled) {
             $checked = false;
-            if (isset(dcCore::app()->ctx->comment_preview['signal'])) {
+            if (isset(App::frontend()->context()->comment_preview['signal'])) {
                 // Restore signal checkbox if necessary
                 $checked = true;
             }
@@ -64,9 +64,9 @@ class FrontendBehaviors
             return '';
         }
 
-        if ((isset($_POST['c_signal']) || isset(dcCore::app()->ctx->comment_preview['signal'])) && $cur->comment_status == dcBlog::COMMENT_PUBLISHED) {
+        if ((isset($_POST['c_signal']) || isset(App::frontend()->context()->comment_preview['signal'])) && $cur->comment_status == BlogInterface::COMMENT_PUBLISHED) {
             // Move status from published to pending
-            $cur->comment_status = dcBlog::COMMENT_PENDING;
+            $cur->comment_status = BlogInterface::COMMENT_PENDING;
         }
 
         return '';
@@ -78,7 +78,7 @@ class FrontendBehaviors
             return '';
         }
 
-        if (isset($_POST['c_signal']) || isset(dcCore::app()->ctx->comment_preview['signal'])) {
+        if (isset($_POST['c_signal']) || isset(App::frontend()->context()->comment_preview['signal'])) {
             return '&signal=1';
         }
 

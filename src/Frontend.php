@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\signal;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 
 class Frontend extends Process
@@ -36,14 +36,14 @@ class Frontend extends Process
             return false;
         }
 
-        dcCore::app()->addBehaviors([
+        App::behavior()->addBehaviors([
             'publicCommentFormBeforeContent' => FrontendBehaviors::publicCommentFormBeforeContent(...),
             'publicBeforeCommentPreview'     => FrontendBehaviors::publicBeforeCommentPreview(...),
             'publicBeforeCommentCreate'      => FrontendBehaviors::publicBeforeCommentCreate(...),
             'publicBeforeCommentRedir'       => FrontendBehaviors::publicBeforeCommentRedir(...),
         ]);
 
-        dcCore::app()->tpl->addBlock('SysIfCommentPending', FrontendTemplate::SysIfCommentPending(...));
+        App::frontend()->template()->addBlock('SysIfCommentPending', FrontendTemplate::SysIfCommentPending(...));
 
         return true;
     }
