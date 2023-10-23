@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\signal;
 
+use ArrayObject;
 use Dotclear\App;
 use Dotclear\Database\Cursor;
 use Dotclear\Helper\Html\Html;
@@ -22,11 +23,11 @@ use Dotclear\Interface\Core\BlogInterface;
 class FrontendBehaviors
 {
     /**
-     * @param      array<string, string>   $comment_preview  The comment preview
+     * @param      ArrayObject<string, string>   $comment_preview  The comment preview
      *
      * @return     string
      */
-    public static function publicBeforeCommentPreview(array $comment_preview): string
+    public static function publicBeforeCommentPreview(ArrayObject $comment_preview): string
     {
         if (My::settings()->enabled && isset($_POST['c_signal'])) {
             // Keep signal checkbox state during preview
