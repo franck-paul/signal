@@ -18,7 +18,6 @@ use ArrayObject;
 use Dotclear\App;
 use Dotclear\Database\Cursor;
 use Dotclear\Helper\Html\Html;
-use Dotclear\Interface\Core\BlogInterface;
 
 class FrontendBehaviors
 {
@@ -65,9 +64,9 @@ class FrontendBehaviors
             return '';
         }
 
-        if ((isset($_POST['c_signal']) || isset(App::frontend()->context()->comment_preview['signal'])) && $cur->comment_status == BlogInterface::COMMENT_PUBLISHED) {
+        if ((isset($_POST['c_signal']) || isset(App::frontend()->context()->comment_preview['signal'])) && $cur->comment_status == App::blog()::COMMENT_PUBLISHED) {
             // Move status from published to pending
-            $cur->comment_status = BlogInterface::COMMENT_PENDING;
+            $cur->comment_status = App::blog()::COMMENT_PENDING;
         }
 
         return '';
