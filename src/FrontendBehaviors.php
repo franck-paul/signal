@@ -50,7 +50,7 @@ class FrontendBehaviors
                 Html::escapeHTML($settings->label) :
                 __('Private comment for the author (or the moderator)');
             echo
-                '<p class="signal"><input name="c_signal" id="c_signal" type="checkbox" ' . ($checked ? 'checked="checked"' : '') . ' /> ' .
+                '<p class="signal"><input name="c_signal" id="c_signal" type="checkbox" ' . ($checked ? 'checked="checked"' : '') . '> ' .
                 '<label for="c_signal">' . $label . '</label>' .
                 '</p>';
         }

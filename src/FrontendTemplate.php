@@ -32,7 +32,7 @@ class FrontendTemplate
         return
             '<?php if (isset($_GET[\'pub\']) && $_GET[\'pub\'] == 0) : ?>' . "\n" .
             '  <?php if (isset($_GET[\'signal\']) && $_GET[\'signal\'] == 1) : ?>' . "\n" .
-            '    <p class="message" id="pr">' . "<?php echo __('Your private comment has been submitted.'); ?>" . '</p>' . "\n" .
+            '    <p class="message" id="pr">' . "<?= __('Your private comment has been submitted.') ?>" . '</p>' . "\n" .
             '  <?php else: ?>' . "\n" .
             $content .
             '  <?php endif; ?>' . "\n" .

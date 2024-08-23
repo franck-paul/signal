@@ -25,6 +25,6 @@ $this->registerModule(
 
         'details'    => 'https://open-time.net/?q=signal',
         'support'    => 'https://github.com/franck-paul/signal',
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/signal/master/dcstore.xml',
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/signal/main/dcstore.xml',
     ]
 );
