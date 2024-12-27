@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief signal, a plugin for Dotclear 2
  *
@@ -23,8 +24,6 @@ class FrontendBehaviors
 {
     /**
      * @param      ArrayObject<string, string>   $comment_preview  The comment preview
-     *
-     * @return     string
      */
     public static function publicBeforeCommentPreview(ArrayObject $comment_preview): string
     {

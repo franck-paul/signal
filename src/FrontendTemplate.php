@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief signal, a plugin for Dotclear 2
  *
@@ -21,8 +22,6 @@ class FrontendTemplate
     /**
      * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
      * @param      string                                            $content   The content
-     *
-     * @return     string
      */
     public static function SysIfCommentPending(array|ArrayObject $attr, string $content): string
     {
