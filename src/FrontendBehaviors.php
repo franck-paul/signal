@@ -63,9 +63,9 @@ class FrontendBehaviors
             return '';
         }
 
-        if ((isset($_POST['c_signal']) || isset(App::frontend()->context()->comment_preview['signal'])) && $cur->comment_status == App::blog()::COMMENT_PUBLISHED) {
+        if ((isset($_POST['c_signal']) || isset(App::frontend()->context()->comment_preview['signal'])) && $cur->comment_status == App::status()->comment()::PUBLISHED) {
             // Move status from published to pending
-            $cur->comment_status = App::blog()::COMMENT_PENDING;
+            $cur->comment_status = App::status()->comment()::PENDING;
         }
 
         return '';
