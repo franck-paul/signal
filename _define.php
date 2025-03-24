@@ -15,9 +15,9 @@ $this->registerModule(
     'Signal',
     'Private comments to the author',
     'Franck Paul',
-    '5.0',
+    '6.0',
     [
-        'date'     => '2003-08-13T13:42:00+0100',
+        'date'     => '2025-03-24T17:10:16+0100',
         'requires' => [
             ['core', '2.33'],
             ['TemplateHelper'],
