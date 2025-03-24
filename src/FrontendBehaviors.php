@@ -18,6 +18,9 @@ namespace Dotclear\Plugin\signal;
 use ArrayObject;
 use Dotclear\App;
 use Dotclear\Database\Cursor;
+use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Html;
 
 class FrontendBehaviors
@@ -45,13 +48,16 @@ class FrontendBehaviors
                 $checked = true;
             }
 
-            $label = $settings->label != '' ?
+            $label = $settings->label ?
                 Html::escapeHTML($settings->label) :
                 __('Private comment for the author (or the moderator)');
-            echo
-                '<p class="signal"><input name="c_signal" id="c_signal" type="checkbox" ' . ($checked ? 'checked="checked"' : '') . '> ' .
-                '<label for="c_signal">' . $label . '</label>' .
-                '</p>';
+            echo (new Para())
+                ->class('signal')
+                ->items([
+                    (new Checkbox('c_signal', $checked))
+                        ->label(new Label($label, Label::IL_FT)),
+                ])
+            ->render();
         }
 
         return '';

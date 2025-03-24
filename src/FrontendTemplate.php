@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\signal;
 
 use ArrayObject;
+use Dotclear\Plugin\TemplateHelper\Code;
 
 class FrontendTemplate
 {
@@ -25,16 +26,10 @@ class FrontendTemplate
      */
     public static function SysIfCommentPending(array|ArrayObject $attr, string $content): string
     {
-        // Void code, used by translation tool
-        __('Your private comment has been submitted.');
-
-        return
-            '<?php if (isset($_GET[\'pub\']) && $_GET[\'pub\'] == 0) : ?>' . "\n" .
-            '  <?php if (isset($_GET[\'signal\']) && $_GET[\'signal\'] == 1) : ?>' . "\n" .
-            '    <p class="message" id="pr">' . "<?= __('Your private comment has been submitted.') ?>" . '</p>' . "\n" .
-            '  <?php else: ?>' . "\n" .
-            $content .
-            '  <?php endif; ?>' . "\n" .
-            '<?php endif; ?>';
+        return Code::getPHPTemplateBlockCode(
+            FrontendTemplateCode::SysIfCommentPending(...),
+            content: $content,
+            attr: $attr,
+        );
     }
 }

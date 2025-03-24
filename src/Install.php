@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief signal, a plugin for Dotclear 2
  *

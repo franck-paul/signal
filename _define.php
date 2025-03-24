@@ -17,8 +17,11 @@ $this->registerModule(
     'Franck Paul',
     '5.0',
     [
-        'date'        => '2003-08-13T13:42:00+0100',
-        'requires'    => [['core', '2.33']],
+        'date'     => '2003-08-13T13:42:00+0100',
+        'requires' => [
+            ['core', '2.33'],
+            ['TemplateHelper'],
+        ],
         'permissions' => 'My',
         'type'        => 'plugin',
         'settings'    => [
@@ -28,5 +31,6 @@ $this->registerModule(
         'details'    => 'https://open-time.net/?q=signal',
         'support'    => 'https://github.com/franck-paul/signal',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/signal/main/dcstore.xml',
+        'license'    => 'gpl2',
     ]
 );
