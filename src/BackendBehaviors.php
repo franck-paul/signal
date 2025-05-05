@@ -20,8 +20,8 @@ use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Input;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Legend;
+use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
-use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Html;
 
 class BackendBehaviors
@@ -47,9 +47,9 @@ class BackendBehaviors
                     ->value($settings->label)
                     ->label((new Label(__('User defined label:'), Label::INSIDE_TEXT_BEFORE))),
             ]),
-            (new Para())->class(['form-note', 'clear'])->items([
-                (new Text(null, __('Leave empty to use the default one:') . ' "' . __('Private comment for the author (or the moderator)') . '"')),
-            ]),
+            (new Note())
+                ->class(['form-note', 'clear'])
+                ->text(__('Leave empty to use the default one:') . ' "' . __('Private comment for the author (or the moderator)') . '"'),
         ])
         ->render();
 
