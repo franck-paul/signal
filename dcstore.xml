@@ -1,12 +1,12 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="signal">
     <name>Signal</name>
-    <version>6.3</version>
+    <version>7.0</version>
     <author>Franck Paul</author>
     <desc>Private comments to the author</desc>
-    <date>2025-07-19T13:03:57+0200</date>
-    <file>https://github.com/franck-paul/signal/releases/download/6.3/plugin-signal-6.3.zip</file>
-    <da:dcmin>2.34</da:dcmin>
+    <date>2025-09-07T15:49:06+0200</date>
+    <file>https://github.com/franck-paul/signal/releases/download/7.0/plugin-signal-7.0.zip</file>
+    <da:dcmin>2.36</da:dcmin>
     <da:details>https://open-time.net/?q=signal</da:details>
     <da:support>https://github.com/franck-paul/signal</da:support>
   </module>
