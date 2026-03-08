@@ -30,13 +30,15 @@ class BackendBehaviors
     {
         $settings = My::settings();
 
+        $label = is_string($label = $settings->label) && $label !== '' ? Html::escapeHTML($label) : '';
+
         // Add fieldset for plugin options
         echo
         (new Fieldset('signal'))
         ->legend((new Legend(__('Signal'))))
         ->fields([
             (new Para())->items([
-                (new Checkbox('signal_enabled', $settings->enabled))
+                (new Checkbox('signal_enabled', (bool) $settings->enabled))
                     ->value(1)
                     ->label((new Label(__('Enable private comments to the author (or the moderator)'), Label::INSIDE_TEXT_AFTER))),
             ]),
@@ -44,7 +46,7 @@ class BackendBehaviors
                 (new Input('signal_label'))
                     ->size(25)
                     ->maxlength(50)
-                    ->value($settings->label)
+                    ->value($label)
                     ->label((new Label(__('User defined label:'), Label::INSIDE_TEXT_BEFORE))),
             ]),
             (new Note())
@@ -60,8 +62,10 @@ class BackendBehaviors
     {
         $settings = My::settings();
 
+        $label = is_string($label = $_POST['signal_label'] ?? '') && $label !== '' ? Html::escapeHTML($label) : '';
+
         $settings->put('enabled', !empty($_POST['signal_enabled']), 'boolean');
-        $settings->put('label', empty($_POST['signal_label']) ? '' : Html::escapeHTML($_POST['signal_label']), 'string');
+        $settings->put('label', $label, 'string');
 
         return '';
     }

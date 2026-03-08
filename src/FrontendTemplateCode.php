@@ -23,12 +23,15 @@ class FrontendTemplateCode
     public static function SysIfCommentPending(
         string $_content_HTML,
     ): void {
-        if (isset($_GET['pub']) && (int) $_GET['pub'] === 0) :
-            if (isset($_GET['signal']) && (int) $_GET['signal'] === 1) : ?>
+        $signal_pub = is_numeric($signal_pub = $_GET['pub'] ?? -1) ? (int) $signal_pub : -1;
+        if ($signal_pub === 0) :
+            $signal_signal = is_numeric($signal_signal = $_GET['signal'] ?? 0) ? (int) $signal_signal : 0;
+            if ($signal_signal === 1) : ?>
                 <p class="message" id="pr"><?= __('Your private comment has been submitted.') ?></p>
             <?php else : ?>
                 $_content_HTML
             <?php endif;
         endif;
+        unset($signal_pub, $signal_signal);
     }
 }

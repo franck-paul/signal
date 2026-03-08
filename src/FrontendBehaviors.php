@@ -43,13 +43,14 @@ class FrontendBehaviors
         $settings = My::settings();
         if ($settings->enabled) {
             $checked = false;
-            if (isset(App::frontend()->context()->comment_preview['signal'])) {
+            $signal  = App::frontend()->context()->comment_preview instanceof arrayObject && is_string($signal = App::frontend()->context()->comment_preview['signal'] ?? '') ? $signal : '';
+            if ($signal !== '') {
                 // Restore signal checkbox if necessary
                 $checked = true;
             }
 
-            $label = $settings->label ?
-                Html::escapeHTML($settings->label) :
+            $label = is_string($label = $settings->label) && $label !== '' ?
+                Html::escapeHTML($label) :
                 __('Private comment for the author (or the moderator)');
             echo (new Para())
                 ->class('signal')
@@ -69,7 +70,8 @@ class FrontendBehaviors
             return '';
         }
 
-        if ((isset($_POST['c_signal']) || isset(App::frontend()->context()->comment_preview['signal'])) && $cur->comment_status == App::status()->comment()::PUBLISHED) {
+        $signal = App::frontend()->context()->comment_preview instanceof arrayObject && is_string($signal = App::frontend()->context()->comment_preview['signal'] ?? '') ? $signal : '';
+        if ((isset($_POST['c_signal']) || $signal !== '') && $cur->comment_status == App::status()->comment()::PUBLISHED) {
             // Move status from published to pending
             $cur->comment_status = App::status()->comment()::PENDING;
         }
@@ -83,7 +85,8 @@ class FrontendBehaviors
             return '';
         }
 
-        if (isset($_POST['c_signal']) || isset(App::frontend()->context()->comment_preview['signal'])) {
+        $signal = App::frontend()->context()->comment_preview instanceof arrayObject && is_string($signal = App::frontend()->context()->comment_preview['signal'] ?? '') ? $signal : '';
+        if (isset($_POST['c_signal']) || $signal !== '') {
             return '&signal=1';
         }
 
