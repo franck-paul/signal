@@ -1,11 +1,11 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="signal">
     <name>Signal</name>
-    <version>7.0</version>
+    <version>7.1</version>
     <author>Franck Paul</author>
     <desc>Private comments to the author</desc>
-    <date>2025-09-07T15:49:06+0200</date>
-    <file>https://github.com/franck-paul/signal/releases/download/7.0/plugin-signal-7.0.zip</file>
+    <date>2026-03-08T14:43:38+0100</date>
+    <file>https://github.com/franck-paul/signal/releases/download/7.1/plugin-signal-7.1.zip</file>
     <da:dcmin>2.36</da:dcmin>
     <da:details>https://dotclear.org/plugin/detail/signal</da:details>
     <da:support>https://github.com/franck-paul/signal</da:support>
