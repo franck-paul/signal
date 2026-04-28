@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\signal;
 
+use Dotclear\App;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Input;
@@ -64,8 +65,8 @@ class BackendBehaviors
 
         $label = is_string($label = $_POST['signal_label'] ?? '') && $label !== '' ? Html::escapeHTML($label) : '';
 
-        $settings->put('enabled', !empty($_POST['signal_enabled']), 'boolean');
-        $settings->put('label', $label, 'string');
+        $settings->put('enabled', !empty($_POST['signal_enabled']), App::blogWorkspace()::NS_BOOL);
+        $settings->put('label', $label, App::blogWorkspace()::NS_STRING);
 
         return '';
     }
