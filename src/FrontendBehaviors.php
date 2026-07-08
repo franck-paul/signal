@@ -30,7 +30,7 @@ class FrontendBehaviors
      */
     public static function publicBeforeCommentPreview(ArrayObject $comment_preview): string
     {
-        if (My::settings()->enabled && isset($_POST['c_signal'])) {
+        if (My::settings()->getBool('enabled') && isset($_POST['c_signal'])) {
             // Keep signal checkbox state during preview
             $comment_preview['signal'] = $_POST['c_signal'];
         }
@@ -41,7 +41,7 @@ class FrontendBehaviors
     public static function publicCommentFormBeforeContent(): string
     {
         $settings = My::settings();
-        if ($settings->enabled) {
+        if ($settings->getBool('enabled')) {
             $checked = false;
             $signal  = App::frontend()->context()->comment_preview instanceof arrayObject && is_string($signal = App::frontend()->context()->comment_preview['signal'] ?? '') ? $signal : '';
             if ($signal !== '') {
@@ -49,14 +49,13 @@ class FrontendBehaviors
                 $checked = true;
             }
 
-            $label = is_string($label = $settings->label) && $label !== '' ?
-                Html::escapeHTML($label) :
-                __('Private comment for the author (or the moderator)');
+            $label = $settings->getStr('label', false) ?: __('Private comment for the author (or the moderator)');
+
             echo (new Para())
                 ->class('signal')
                 ->items([
                     (new Checkbox('c_signal', $checked))
-                        ->label(new Label($label, Label::IL_FT)),
+                        ->label(new Label(Html::escapeHTML($label), Label::IL_FT)),
                 ])
             ->render();
         }
@@ -66,7 +65,7 @@ class FrontendBehaviors
 
     public static function publicBeforeCommentCreate(Cursor $cur): string
     {
-        if (!My::settings()->enabled) {
+        if (!My::settings()->getBool('enabled')) {
             return '';
         }
 
@@ -81,7 +80,7 @@ class FrontendBehaviors
 
     public static function publicBeforeCommentRedir(): string
     {
-        if (!My::settings()->enabled) {
+        if (!My::settings()->getBool('enabled')) {
             return '';
         }
 
