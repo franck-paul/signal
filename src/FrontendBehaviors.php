@@ -70,9 +70,9 @@ class FrontendBehaviors
         }
 
         $signal = App::frontend()->context()->comment_preview instanceof arrayObject && is_string($signal = App::frontend()->context()->comment_preview['signal'] ?? '') ? $signal : '';
-        if ((isset($_POST['c_signal']) || $signal !== '') && $cur->comment_status == App::status()->comment()::PUBLISHED) {
+        if ((isset($_POST['c_signal']) || $signal !== '') && $cur->intField('comment_status') === App::status()->comment()::PUBLISHED) {
             // Move status from published to pending
-            $cur->comment_status = App::status()->comment()::PENDING;
+            $cur->setIntField('comment_status', App::status()->comment()::PENDING);
         }
 
         return '';
