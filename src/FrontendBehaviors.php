@@ -43,7 +43,7 @@ class FrontendBehaviors
         $settings = My::settings();
         if ($settings->getBool('enabled')) {
             $checked = false;
-            $signal  = App::frontend()->context()->comment_preview instanceof arrayObject && is_string($signal = App::frontend()->context()->comment_preview['signal'] ?? '') ? $signal : '';
+            $signal  = App::frontend()->context()->comment_preview instanceof ArrayObject && is_string($signal = App::frontend()->context()->comment_preview['signal'] ?? '') ? $signal : '';
             if ($signal !== '') {
                 // Restore signal checkbox if necessary
                 $checked = true;
@@ -69,7 +69,7 @@ class FrontendBehaviors
             return '';
         }
 
-        $signal = App::frontend()->context()->comment_preview instanceof arrayObject && is_string($signal = App::frontend()->context()->comment_preview['signal'] ?? '') ? $signal : '';
+        $signal = App::frontend()->context()->comment_preview instanceof ArrayObject && is_string($signal = App::frontend()->context()->comment_preview['signal'] ?? '') ? $signal : '';
         if ((isset($_POST['c_signal']) || $signal !== '') && $cur->intField('comment_status') === App::status()->comment()::PUBLISHED) {
             // Move status from published to pending
             $cur->setIntField('comment_status', App::status()->comment()::PENDING);
@@ -84,7 +84,7 @@ class FrontendBehaviors
             return '';
         }
 
-        $signal = App::frontend()->context()->comment_preview instanceof arrayObject && is_string($signal = App::frontend()->context()->comment_preview['signal'] ?? '') ? $signal : '';
+        $signal = App::frontend()->context()->comment_preview instanceof ArrayObject && is_string($signal = App::frontend()->context()->comment_preview['signal'] ?? '') ? $signal : '';
         if (isset($_POST['c_signal']) || $signal !== '') {
             return '&signal=1';
         }
