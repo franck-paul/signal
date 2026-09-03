@@ -26,13 +26,13 @@ use Dotclear\Helper\Html\Html;
 class FrontendBehaviors
 {
     /**
-     * @param      ArrayObject<string, string>   $comment_preview  The comment preview
+     * @param      ArrayObject<string, string>   $arrayObject  The comment preview
      */
-    public static function publicBeforeCommentPreview(ArrayObject $comment_preview): string
+    public static function publicBeforeCommentPreview(ArrayObject $arrayObject): string
     {
         if (My::settings()->getBool('enabled') && isset($_POST['c_signal'])) {
             // Keep signal checkbox state during preview
-            $comment_preview['signal'] = $_POST['c_signal'];
+            $arrayObject['signal'] = $_POST['c_signal'];
         }
 
         return '';
@@ -63,16 +63,16 @@ class FrontendBehaviors
         return '';
     }
 
-    public static function publicBeforeCommentCreate(Cursor $cur): string
+    public static function publicBeforeCommentCreate(Cursor $cursor): string
     {
         if (!My::settings()->getBool('enabled')) {
             return '';
         }
 
         $signal = App::frontend()->context()->comment_preview instanceof ArrayObject && is_string($signal = App::frontend()->context()->comment_preview['signal'] ?? '') ? $signal : '';
-        if ((isset($_POST['c_signal']) || $signal !== '') && $cur->intField('comment_status') === App::status()->comment()::PUBLISHED) {
+        if ((isset($_POST['c_signal']) || $signal !== '') && $cursor->intField('comment_status') === App::status()->comment()::PUBLISHED) {
             // Move status from published to pending
-            $cur->setIntField('comment_status', App::status()->comment()::PENDING);
+            $cursor->setIntField('comment_status', App::status()->comment()::PENDING);
         }
 
         return '';
