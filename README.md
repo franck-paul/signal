@@ -3,7 +3,7 @@ Signal plugin for Dotclear 2
 [![Release](https://img.shields.io/github/v/release/franck-paul/signal)](https://github.com/franck-paul/signal/releases)
 [![Date](https://img.shields.io/github/release-date/franck-paul/signal)](https://github.com/franck-paul/signal/releases)
 [![Issues](https://img.shields.io/github/issues/franck-paul/signal)](https://github.com/franck-paul/signal/issues)
-[![License](https://img.shields.io/github/license/franck-paul/signal)](https://github.com/franck-paul/signal/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/franck-paul/signal)](https://github.com/franck-paul/signal/blob/main/LICENSE)
 
 ============================
 
