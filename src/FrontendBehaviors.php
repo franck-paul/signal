@@ -30,7 +30,7 @@ class FrontendBehaviors
      */
     public static function publicBeforeCommentPreview(ArrayObject $arrayObject): string
     {
-        if (My::settings()->getBool('enabled') && isset($_POST['c_signal'])) {
+        if (My::settings()->getBool('enabled', false) && isset($_POST['c_signal'])) {
             // Keep signal checkbox state during preview
             $arrayObject['signal'] = $_POST['c_signal'];
         }
@@ -41,7 +41,7 @@ class FrontendBehaviors
     public static function publicCommentFormBeforeContent(): string
     {
         $settings = My::settings();
-        if ($settings->getBool('enabled')) {
+        if ($settings->getBool('enabled', false)) {
             $checked = false;
             $signal  = App::frontend()->context()->comment_preview instanceof ArrayObject && is_string($signal = App::frontend()->context()->comment_preview['signal'] ?? '') ? $signal : '';
             if ($signal !== '') {
@@ -65,7 +65,7 @@ class FrontendBehaviors
 
     public static function publicBeforeCommentCreate(Cursor $cursor): string
     {
-        if (!My::settings()->getBool('enabled')) {
+        if (!My::settings()->getBool('enabled', false)) {
             return '';
         }
 
@@ -80,7 +80,7 @@ class FrontendBehaviors
 
     public static function publicBeforeCommentRedir(): string
     {
-        if (!My::settings()->getBool('enabled')) {
+        if (!My::settings()->getBool('enabled', false)) {
             return '';
         }
 
